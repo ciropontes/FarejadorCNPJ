@@ -1,8 +1,8 @@
 {
-  "name": "cnpj-checker",
+  "name": "farejador-cnpj",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ciropontes.github.io/",
+  "homepage": "http://ciropontes.github.io/FarejadorCNPJ",
   "dependencies": {
     "@material-ui/core": "^4.9.14",
     "@material-ui/icons": "^4.9.1",
