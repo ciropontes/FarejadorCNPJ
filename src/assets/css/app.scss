@@ -1,0 +1,39 @@
+.pointer {
+  cursor: pointer;
+}
+
+.main-header {
+  background-color: #1e1e2d;
+  margin-bottom: 30px;
+}
+
+.navbar-header-title {
+  color: white;
+  padding-right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.main-footer {
+  height: 40px;
+  width: 100%;
+  background-color: #1e1e2d;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  font-size: 13px;
+  padding: 15px;
+
+  .text-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 95%;
+    text-align: left;
+  }
+}
