@@ -24,7 +24,7 @@ export default class Home extends Component {
             <Container maxWidth="sm">
                 <div className="jumbotron" style={{ textAlign: 'center' }}>
                     <p className="lead">
-                        Pesquise por todas as empresas do Brasil
+                        Pesquise por a todas as empresas do Brasil
                     </p>
                     <button type="button" className="btn btn-primary" onClick={() => this.props.history.push('/empresa-pesquisar')}>Pesquisar</button>
                     <hr />

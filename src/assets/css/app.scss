@@ -15,25 +15,30 @@
 }
 
 .main-footer {
-  height: 40px;
   width: 100%;
   background-color: #1e1e2d;
   color: white;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  font-size: 13px;
-  padding: 15px;
+  position: absolute;
+  bottom: 0px;
+  padding: 0px 5px;
+  text-align: center;
+  font-size: 12px;
 
-  .text-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 95%;
-    text-align: left;
+}
+
+.page-header-title {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 2px 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .page-header-title {
+    display: none;
   }
+
+  .table-cell-mobile-hidden {
+    display: none !important;
+  }
+
 }

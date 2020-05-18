@@ -10,10 +10,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import EmpresaDetail from './Empresa.Detail'
@@ -105,14 +104,6 @@ export default class EmpresaList extends Component {
         })
     }
 
-    onChangeRowsPerPage = (event) => {
-        let page = this.state.page
-        page.size = event.target.value
-        this.setState({ page }, () => {
-            this.listEmpresa()
-        })
-    }
-
     columns = [
         { id: 'razaoSocial', label: 'Razão social', minWidth: 170 },
         { id: 'cnpj', label: 'CNPJ', minWidth: 100 },
@@ -121,7 +112,6 @@ export default class EmpresaList extends Component {
         { id: 'cnaeFiscalValue', label: 'Ramo atividade', minWidth: 100 },
         { id: 'contato', label: 'Contato', minWidth: 100 },
         { id: 'situacao', label: 'Situação', minWidth: 100 },
-        { id: 'edit', label: '' },
     ];
 
     closeModal = () => {
@@ -143,7 +133,7 @@ export default class EmpresaList extends Component {
 
 
         return (
-            <Container maxWidth="lg">
+            <Container maxWidth={false}>
 
                 <div>
                     <div style={{ display: 'flex', float: 'left' }}>
@@ -152,17 +142,17 @@ export default class EmpresaList extends Component {
                                 Voltar
                             </button>
                         </a>
-                        <span style={{ fontWeight: 'bold', fontSize: '20px', padding: '2px 15px' }}>
+                        <span className="page-header-title" >
                             Lista de empresas do Brasil
                         </span>
                     </div>
-                    <FormControl style={{ float: 'right', width: '300px' }} >
+                    <FormControl style={{ float: 'right', width: '250px', marginTop: '-10px' }} >
                         <InputLabel htmlFor="txtCnpj">Pesquisar por CNPJ</InputLabel>
-                        <Input
+                        <TextField
                             id="txtCnpj"
                             type={'text'}
                             value={this.state.txtCnpj}
-                            onChange={event => this.setState({ txtCnpj: event.target.value })}
+                            onChange={event => this.setState({ txtCnpj: event.target.value.replace(/\D/g, '') })}
                             endAdornment={
                                 <InputAdornment position="end" className="pointer" title="buscar" onClick={() => this.listEmpresa()} style={{ padding: '15px' }} >
                                     <span className="fas fa-search" />
@@ -175,12 +165,14 @@ export default class EmpresaList extends Component {
                     <TableContainer style={{ maxHeight: 'calc(100vh - 260px)' }}>
                         <Table stickyHeader>
                             <TableHead>
-                                <TableRow>
-                                    {this.columns.map((column) => (
-                                        <TableCell
+                                <TableRow >
+                                    {this.columns.map((column, index) => (
+
+                                        < TableCell
                                             key={column.id}
                                             align={column.align}
                                             style={{ minWidth: column.minWidth }}
+                                            className={index > 1 ? 'table-cell-mobile-hidden' : ''}
                                         >
                                             {column.label}
                                         </TableCell>
@@ -190,22 +182,16 @@ export default class EmpresaList extends Component {
                             <TableBody>
                                 {this.state.empresaList.map((row, index) => {
                                     return (
-                                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                            {this.columns.map((column) => {
-
-                                                if (column.id === 'edit') {
-                                                    return (
-                                                        <TableCell key={column.id} align={column.align}>
-                                                            < Button variant="outlined" color="primary" onClick={() => this.showModal(row)}>
-                                                                Detalhes
-                                                            </Button>
-                                                        </TableCell>
-                                                    );
-                                                }
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={index} onClick={() => this.showModal(row)} className="pointer" title="Ver detalhes" >
+                                            {this.columns.map((column, index) => {
 
                                                 const value = row[column.id];
                                                 return (
-                                                    <TableCell key={column.id} align={column.align}>
+                                                    <TableCell
+                                                        key={column.id}
+                                                        align={column.align}
+                                                        className={index > 1 ? 'table-cell-mobile-hidden' : ''}
+                                                    >
                                                         {column.format && typeof value === 'number' ? column.format(value) : value}
                                                     </TableCell>
                                                 );
@@ -219,9 +205,9 @@ export default class EmpresaList extends Component {
                     </TableContainer>
                     <TablePagination
                         component="div"
-                        labelRowsPerPage="Registros por página"
-                        rowsPerPageOptions={[10, 30, 100]}
-                        onChangeRowsPerPage={this.onChangeRowsPerPage}
+                        labelRowsPerPage=""
+                        rowsPerPageOptions={[]}
+                        labelDisplayedRows={({ from, to, count }) => `Exibindo ${from} à ${to === -1 ? count : to} de ${count !== -1 ? count : 'more than ' + to}`}
                         rowsPerPage={this.state.page.size || 0}
                         count={this.state.page.total || 0}
                         page={this.state.page.current - 1 || 0}
